@@ -16,6 +16,7 @@ services:
       MODE: "survival"
     volumes:
       - ./data:/data
+      - /etc/localtime:/etc/localtime:ro
     tty: true
     stdin_open: true
     logging:
