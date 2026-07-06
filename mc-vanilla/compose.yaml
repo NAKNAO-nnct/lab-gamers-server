@@ -4,26 +4,49 @@ services:
     restart: unless-stopped
     ports:
       - "25565:25565"
+      # Dynmap の Web UI
+      - "8123:8123"
+
     environment:
       EULA: "TRUE"
-      TYPE: "VANILLA"
+
+      # Dynmap は Vanilla ではなく Paper/Spigot/Bukkit 系プラグインとして入れる
+      TYPE: "PAPER"
+
       VERSION: "26.2"
+
+      # 26.2 の Paper は experimental 側の可能性があるため
+      PAPER_CHANNEL: "experimental"
+
+      # Dynmap を Modrinth から自動取得
+      # ? を付けると、26.2対応版が見つからない場合でもサーバ起動は止めない
+      MODRINTH_PROJECTS: |
+        dynmap?
+
+      # 念のため。release版のみ探す
+      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: "release"
+
       # サーバのメモリが8GB
       MEMORY: "7G"
       TZ: "Asia/Tokyo"
-      MOTD: "Vanilla Minecraft 26.2 Server"
+
+      MOTD: "Paper Minecraft 26.2 Server with Dynmap"
       DIFFICULTY: "normal"
       MODE: "survival"
+
     volumes:
       - ./data:/data
       - /etc/localtime:/etc/localtime:ro
+
     tty: true
     stdin_open: true
+
     logging:
       driver: json-file
       options:
-        max-size: 10m
-        max-file: 10
+        max-size: "10m"
+        max-file: "10"
+
 networks:
   default:
     driver: bridge
