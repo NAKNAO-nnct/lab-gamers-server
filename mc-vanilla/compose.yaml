@@ -4,33 +4,25 @@ services:
     restart: unless-stopped
     ports:
       - "25565:25565"
-      # Dynmap の Web UI
-      - "8123:8123"
+      # BlueMap Web UI
+      - "8100:8100"
 
     environment:
       EULA: "TRUE"
 
-      # Dynmap は Vanilla ではなく Paper/Spigot/Bukkit 系プラグインとして入れる
       TYPE: "PAPER"
-
       VERSION: "26.2"
-
-      # 26.2 の Paper は experimental 側の可能性があるため
       PAPER_CHANNEL: "experimental"
 
-      # Dynmap を Modrinth から自動取得
-      # ? を付けると、26.2対応版が見つからない場合でもサーバ起動は止めない
       MODRINTH_PROJECTS: |
-        dynmap?
-
-      # 念のため。release版のみ探す
-      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: "release"
+        bluemap
+        discordsrv
 
       # サーバのメモリが8GB
       MEMORY: "7G"
-      TZ: "Asia/Tokyo"
 
-      MOTD: "Paper Minecraft 26.2 Server with Dynmap"
+      TZ: "Asia/Tokyo"
+      MOTD: "Paper Minecraft 26.2 Server"
       DIFFICULTY: "normal"
       MODE: "survival"
 
@@ -52,3 +44,9 @@ networks:
     driver: bridge
     driver_opts:
       com.docker.network.driver.mtu: "1450"
+
+# DiscordSRV Config
+# 
+# BotToken: "DiscordのBotトークン"
+# Channels: {"global": "DiscordのチャンネルID"}
+# data/plugins/DiscordSRV/config.yml
