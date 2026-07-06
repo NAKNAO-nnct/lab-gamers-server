@@ -15,8 +15,8 @@ services:
       PAPER_CHANNEL: "experimental"
 
       MODRINTH_PROJECTS: |
-        bluemap
-        discordsrv
+        bluemap?
+        discordsrv?
 
       # サーバのメモリが8GB
       MEMORY: "7G"
